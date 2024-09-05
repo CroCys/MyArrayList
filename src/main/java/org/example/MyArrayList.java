@@ -43,7 +43,7 @@ public class MyArrayList<E extends Comparable<E>> {
 
 	// Добавить элемент по индексу
 	public void add(int index, E e) {
-		if (index < 0 || index >= size) {
+		if (index < 0 || index > size) {
 			throw new IndexOutOfBoundsException();
 		}
 
@@ -59,7 +59,7 @@ public class MyArrayList<E extends Comparable<E>> {
 
 	// Получить элемент
 	public E get(int index) {
-		if (index < 0 || index >= size) {
+		if (index < 0 || index > size) {
 			throw new IndexOutOfBoundsException();
 		}
 		return (E) elementData[index];
@@ -67,7 +67,7 @@ public class MyArrayList<E extends Comparable<E>> {
 
 	// Удалить элемент
 	public void remove(int index) {
-		if (index < 0 || index >= size) {
+		if (index < 0) {
 			throw new IndexOutOfBoundsException();
 		}
 
@@ -151,7 +151,7 @@ public class MyArrayList<E extends Comparable<E>> {
 
 	// Заменить элемент по индексу
 	public E set(int index, E e) {
-		if (index < 0 || index >= size) {
+		if (index < 0 || index > size) {
 			throw new IndexOutOfBoundsException();
 		}
 

@@ -3,15 +3,29 @@ package org.example;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/**
+ * Класс реализует собственный динамический массив, похожий на ArrayList.
+ *
+ * @param <E> тип элементов, которые должны реализовывать интерфейс {@link Comparable}.
+ */
 public class MyArrayList<E extends Comparable<E>> {
 	private Object[] elementData;
 	private static final int DEFAULT_CAPACITY = 10;
 	private int size = 0;
 
+	/**
+	 * Конструктор без параметров. Создает массив с начальной емкостью по умолчанию.
+	 */
 	public MyArrayList() {
 		this.elementData = new Object[DEFAULT_CAPACITY];
 	}
 
+	/**
+	 * Конструктор с заданным размером.
+	 *
+	 * @param size начальная емкость массива.
+	 * @throws IllegalArgumentException если размер отрицательный.
+	 */
 	public MyArrayList(int size) {
 		if (size > 0) {
 			elementData = new Object[size];
@@ -22,26 +36,40 @@ public class MyArrayList<E extends Comparable<E>> {
 		}
 	}
 
-	// Увеличить вместимость
+	/**
+	 * Увеличивает вместимость массива, если это необходимо.
+	 */
 	private void expandCapacity() {
 		if (size == elementData.length)
 			elementData = Arrays.copyOf(elementData, size * 2);
 	}
 
-	// Уменьшить вместимость
+	/**
+	 * Уменьшает вместимость массива, если это необходимо.
+	 */
 	private void narrowCapacity() {
 		if (size > elementData.length) {
 			elementData = Arrays.copyOf(elementData, size / 2);
 		}
 	}
 
-	// Добавить элемент
+	/**
+	 * Добавляет элемент в конец списка.
+	 *
+	 * @param e элемент для добавления.
+	 */
 	public void add(E e) {
 		expandCapacity();
 		elementData[size++] = e;
 	}
 
-	// Добавить элемент по индексу
+	/**
+	 * Добавляет элемент на указанный индекс.
+	 *
+	 * @param index индекс, на который будет добавлен элемент.
+	 * @param e     элемент для добавления.
+	 * @throws IndexOutOfBoundsException если индекс вне допустимого диапазона.
+	 */
 	public void add(int index, E e) {
 		if (index < 0 || index > size) {
 			throw new IndexOutOfBoundsException();
@@ -57,7 +85,13 @@ public class MyArrayList<E extends Comparable<E>> {
 		size++;
 	}
 
-	// Получить элемент
+	/**
+	 * Возвращает элемент по индексу.
+	 *
+	 * @param index индекс элемента для возврата.
+	 * @return элемент, находящийся на указанном индексе.
+	 * @throws IndexOutOfBoundsException если индекс вне допустимого диапазона.
+	 */
 	public E get(int index) {
 		if (index < 0 || index > size) {
 			throw new IndexOutOfBoundsException();
@@ -65,7 +99,12 @@ public class MyArrayList<E extends Comparable<E>> {
 		return (E) elementData[index];
 	}
 
-	// Удалить элемент
+	/**
+	 * Удаляет элемент по указанному индексу.
+	 *
+	 * @param index индекс элемента для удаления.
+	 * @throws IndexOutOfBoundsException если индекс вне допустимого диапазона.
+	 */
 	public void remove(int index) {
 		if (index < 0) {
 			throw new IndexOutOfBoundsException();
@@ -79,7 +118,9 @@ public class MyArrayList<E extends Comparable<E>> {
 		narrowCapacity();
 	}
 
-	// Очистить всю коллекцию
+	/**
+	 * Очищает список, удаляя все элементы.
+	 */
 	public void clear() {
 		for (int i = 0; i < size; i++) {
 			elementData[i] = null;
@@ -87,11 +128,19 @@ public class MyArrayList<E extends Comparable<E>> {
 		size = 0;
 	}
 
-	// Отсортировать
+	/**
+	 * Сортирует список с использованием алгоритма быстрой сортировки.
+	 */
 	public void sort() {
 		quickSort(0, size - 1);
 	}
 
+	/**
+	 * Рекурсивная функция быстрой сортировки.
+	 *
+	 * @param low  начальный индекс.
+	 * @param high конечный индекс.
+	 */
 	private void quickSort(int low, int high) {
 		if (low < high) {
 			int pivotIndex = partition(low, high);
@@ -100,6 +149,13 @@ public class MyArrayList<E extends Comparable<E>> {
 		}
 	}
 
+	/**
+	 * Разбиение для быстрой сортировки.
+	 *
+	 * @param low  начальный индекс.
+	 * @param high конечный индекс.
+	 * @return индекс разделяющего элемента.
+	 */
 	private int partition(int low, int high) {
 		E pivot = get(high);
 		int i = low - 1;
@@ -115,17 +171,34 @@ public class MyArrayList<E extends Comparable<E>> {
 		return i + 1;
 	}
 
+	/**
+	 * Меняет местами два элемента в списке.
+	 *
+	 * @param i индекс первого элемента.
+	 * @param j индекс второго элемента.
+	 */
 	private void swap(int i, int j) {
 		E temp = get(i);
 		set(i, get(j));
 		set(j, temp);
 	}
 
-	// Отсортировать через компаратор
+	/**
+	 * Сортирует список с использованием заданного компаратора.
+	 *
+	 * @param comparator компаратор для сортировки.
+	 */
 	public void sort(Comparator<E> comparator) {
 		quickSort(comparator, 0, size - 1);
 	}
 
+	/**
+	 * Рекурсивная функция быстрой сортировки с компаратором.
+	 *
+	 * @param comparator компаратор для сортировки.
+	 * @param low        начальный индекс.
+	 * @param high       конечный индекс.
+	 */
 	private void quickSort(Comparator<E> comparator, int low, int high) {
 		if (low < high) {
 			int pivotIndex = partition(comparator, low, high);
@@ -134,6 +207,14 @@ public class MyArrayList<E extends Comparable<E>> {
 		}
 	}
 
+	/**
+	 * Разбиение для быстрой сортировки с компаратором.
+	 *
+	 * @param comparator компаратор для сортировки.
+	 * @param low        начальный индекс.
+	 * @param high       конечный индекс.
+	 * @return индекс разделяющего элемента.
+	 */
 	private int partition(Comparator<E> comparator, int low, int high) {
 		E pivot = get(high);
 		int i = low - 1;
@@ -149,7 +230,14 @@ public class MyArrayList<E extends Comparable<E>> {
 		return i + 1;
 	}
 
-	// Заменить элемент по индексу
+	/**
+	 * Заменяет элемент на указанном индексе.
+	 *
+	 * @param index индекс заменяемого элемента.
+	 * @param e     новый элемент.
+	 * @return старый элемент, который был заменен.
+	 * @throws IndexOutOfBoundsException если индекс вне допустимого диапазона.
+	 */
 	public E set(int index, E e) {
 		if (index < 0 || index > size) {
 			throw new IndexOutOfBoundsException();
@@ -160,6 +248,11 @@ public class MyArrayList<E extends Comparable<E>> {
 		return oldValue;
 	}
 
+	/**
+	 * Возвращает текущий размер списка.
+	 *
+	 * @return количество элементов в списке.
+	 */
 	public int size() {
 		return size;
 	}

@@ -4,7 +4,7 @@ package org.example;
  * Класс, представляющий телефон с моделью и ценой. Реализует интерфейс {@link Comparable},
  * что позволяет сравнивать объекты по цене.
  */
-public class Phone implements Comparable<Phone> {
+public class Phone {
 	private String model;
 	private int price;
 
@@ -72,17 +72,5 @@ public class Phone implements Comparable<Phone> {
 				"model='" + model + '\'' +
 				", price=" + price +
 				'}';
-	}
-
-	/**
-	 * Сравнивает текущий объект телефона с другим телефоном по цене.
-	 *
-	 * @param p объект {@link Phone} для сравнения.
-	 * @return отрицательное число, если текущий телефон дешевле, ноль, если цены одинаковы,
-	 *         положительное число, если текущий телефон дороже.
-	 */
-	@Override
-	public int compareTo(Phone p) {
-		return Integer.compare(this.price, p.price);
 	}
 }

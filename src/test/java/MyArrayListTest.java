@@ -47,7 +47,7 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#add(Comparable)} для добавления элементов в {@link MyArrayList}.
+	 * Тестирует метод {@link MyArrayList#add(Object)} для добавления элементов в {@link MyArrayList}.
 	 */
 	@Test
 	void testAdd() {
@@ -66,7 +66,7 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#add(Comparable)} для добавления строковых элементов в {@link MyArrayList}.
+	 * Тестирует метод {@link MyArrayList#add(Object)} для добавления строковых элементов в {@link MyArrayList}.
 	 */
 	@Test
 	void testAddString() {
@@ -83,7 +83,7 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#add(Comparable)} для добавления числовых элементов в {@link MyArrayList}.
+	 * Тестирует метод {@link MyArrayList#add(Object)} для добавления числовых элементов в {@link MyArrayList}.
 	 */
 	@Test
 	void testAddInteger() {
@@ -100,7 +100,7 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#add(Comparable)} для добавления 1000 элементов в {@link MyArrayList}.
+	 * Тестирует метод {@link MyArrayList#add(Object)} для добавления 1000 элементов в {@link MyArrayList}.
 	 */
 	@Test
 	void testAdd1000() {
@@ -131,7 +131,7 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует исключение для метода {@link MyArrayList#add(Comparable)} класса {@link MyArrayList}.
+	 * Тестирует исключение для метода {@link MyArrayList#add(Object)} класса {@link MyArrayList}.
 	 */
 	@Test
 	void testAddException() {
@@ -141,7 +141,7 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#add(int, Comparable)} для добавления элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#add(int, Object)} для добавления элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testAddByIndex() {
@@ -163,7 +163,7 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#add(int, Comparable)} для добавления строковых элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#add(int, Object)} для добавления строковых элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testAddByIndexString() {
@@ -182,7 +182,7 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#add(int, Comparable)} для добавления числовых элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#add(int, Object)} для добавления числовых элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testAddByIndexInteger() {
@@ -374,7 +374,7 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#set(int, Comparable)} для замены элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#set(int, Object)} для замены элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testSet() {
@@ -395,7 +395,7 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#set(int, Comparable)} для замены строковых элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#set(int, Object)} для замены строковых элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testSetString() {
@@ -412,7 +412,7 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#set(int, Comparable)} для замены числовых элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#set(int, Object)} для замены числовых элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testSetInteger() {
@@ -429,7 +429,7 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует исключение для метода {@link MyArrayList#set(int, Comparable)} класса {@link MyArrayList}.
+	 * Тестирует исключение для метода {@link MyArrayList#set(int, Object)} класса {@link MyArrayList}.
 	 */
 	@Test
 	void testSetException() {
@@ -490,7 +490,8 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#sort()} для сортировки всех элементов в {@link MyArrayList}.
+	 * Тестирует метод {@link MyArrayList#sort(Comparator)} для сортировки всех элементов
+	 * в {@link MyArrayList} по возрастанию и по убыванию.
 	 */
 	@Test
 	void testSort() {
@@ -505,57 +506,19 @@ public class MyArrayListTest {
 		list.add(phone2);
 		list.add(phone3);
 
-		list.sort();
+		list.sort(Comparator.comparingInt(Phone::getPrice));
 
-		assertEquals(3, list.size(), "Размер списка должен остаться 3 после сортировки");
+		assertEquals(3, list.size(), "Размер списка должен остаться 3 после сортировки по возрастанию");
 		assertEquals(phone2, list.get(0), "Первый элемент должен быть Samsung (цена 600) после сортировки");
 		assertEquals(phone1, list.get(1), "Второй элемент должен быть Huawei (цена 800)");
 		assertEquals(phone3, list.get(2), "Третий элемент должен быть Apple (цена 1000)");
-	}
-
-	/**
-	 * Тестирует метод {@link MyArrayList#sort()} для сортировки всех числовых элементов в {@link MyArrayList}.
-	 */
-	@Test
-	void testSortInteger() {
-		MyArrayList<Integer> list = new MyArrayList<>();
-
-		assertEquals(0, list.size(), "Размер списка должен быть 0");
-
-		list.add(3);
-		list.add(1);
-		list.add(2);
-
-		list.sort();
-
-		assertEquals(3, list.size(), "Размер списка должен остаться 3 после сортировки");
-		assertEquals(1, list.get(0), "Первый элемент должен быть 1 после сортировки");
-		assertEquals(2, list.get(1), "Второй элемент должен быть 2 после сортировки");
-		assertEquals(3, list.get(2), "Третий элемент должен быть 3 после сортировки");
-	}
-
-	/**
-	 * Тестирует метод {@link MyArrayList#sort(Comparator)} для сортировки всех элементов в {@link MyArrayList}.
-	 */
-	@Test
-	void testSortWithComparator() {
-		MyArrayList<Phone> list = new MyArrayList<>();
-		Phone phone1 = new Phone("OnePlus", 700);
-		Phone phone2 = new Phone("Oppo", 900);
-		Phone phone3 = new Phone("Realme", 500);
-
-		assertEquals(0, list.size(), "Размер списка должен быть 0");
-
-		list.add(phone1);
-		list.add(phone2);
-		list.add(phone3);
 
 		list.sort(Comparator.comparing(Phone::getPrice).reversed());
 
 		assertEquals(3, list.size(), "Размер списка должен остаться 3 после сортировки по убыванию");
-		assertEquals(phone2, list.get(0), "Первый элемент должен быть Oppo (цена 900)");
-		assertEquals(phone1, list.get(1), "Второй элемент должен быть OnePlus (цена 700)");
-		assertEquals(phone3, list.get(2), "Третий элемент должен быть Realme (цена 500)");
+		assertEquals(phone3, list.get(0), "Первый элемент должен быть Apple (цена 1000)");
+		assertEquals(phone1, list.get(1), "Второй элемент должен быть Huawei (цена 800)");
+		assertEquals(phone2, list.get(2), "Третий элемент должен быть Samsung (цена 600)");
 	}
 
 	/**

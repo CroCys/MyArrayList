@@ -1,6 +1,4 @@
-import org.example.MyArrayList;
 import org.example.Phone;
-import org.example.PhoneComparator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,68 +63,6 @@ public class PhoneTest {
 		phone.setPrice(1200);
 
 		assertEquals(1200, phone.getPrice(), "Метод setPrice() должен установить цену 1200");
-	}
-
-	/**
-	 * Тестирует сортировку объектов класса {@link Phone} с использованием
-	 * пользовательского компаратора {@link PhoneComparator}.
-	 */
-	@Test
-	void testPhoneComparator() {
-		MyArrayList<Phone> phoneList = new MyArrayList<>();
-		Phone phone1 = new Phone("iPhone", 1000);
-		Phone phone2 = new Phone("Samsung", 900);
-		Phone phone3 = new Phone("Nokia", 600);
-		Phone phone4 = new Phone("Motorola", 800);
-		PhoneComparator comparator = new PhoneComparator();
-
-		phoneList.add(phone1);
-		phoneList.add(phone2);
-		phoneList.add(phone3);
-		phoneList.add(phone4);
-
-		phoneList.sort(comparator);
-
-		assertEquals(phoneList.get(0) == phone4, phoneList.get(0) == phone4);
-		assertEquals(phoneList.get(1) == phone3, phoneList.get(1) == phone3);
-		assertEquals(phoneList.get(2) == phone2, phoneList.get(2) == phone2);
-		assertEquals(phoneList.get(3) == phone1, phoneList.get(3) == phone1);
-	}
-
-	/**
-	 * Тестирует метод {@link Phone#compareTo(Phone)}.
-	 * Сравнивает два телефона, когда текущий телефон дешевле.
-	 */
-	@Test
-	void testCompareTo_LessThan() {
-		Phone phone1 = new Phone("LG", 500);
-		Phone phone2 = new Phone("Motorola", 800);
-
-		assertTrue(phone1.compareTo(phone2) < 0, "Phone с ценой 500 должен быть 'меньше' Phone с ценой 800");
-	}
-
-	/**
-	 * Тестирует метод {@link Phone#compareTo(Phone)}.
-	 * Сравнивает два телефона, когда текущий телефон дороже.
-	 */
-	@Test
-	void testCompareTo_GreaterThan() {
-		Phone phone1 = new Phone("Huawei", 1500);
-		Phone phone2 = new Phone("Asus", 1000);
-
-		assertTrue(phone1.compareTo(phone2) > 0, "Phone с ценой 1500 должен быть 'больше' Phone с ценой 1000");
-	}
-
-	/**
-	 * Тестирует метод {@link Phone#compareTo(Phone)}.
-	 * Сравнивает два телефона с одинаковой ценой.
-	 */
-	@Test
-	void testCompareTo_Equals() {
-		Phone phone1 = new Phone("Alcatel", 600);
-		Phone phone2 = new Phone("Oppo", 600);
-
-		assertEquals(0, phone1.compareTo(phone2), "Два телефона с одинаковой ценой должны быть равны при сравнении");
 	}
 
 	/**

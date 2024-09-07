@@ -8,7 +8,7 @@ import java.util.Comparator;
  *
  * @param <E> тип элементов, которые должны реализовывать интерфейс {@link Comparable}.
  */
-public class MyArrayList<E extends Comparable<E>> {
+public class MyArrayList<E> {
 	private Object[] elementData;
 	private static final int DEFAULT_CAPACITY = 10;
 	private int size = 0;
@@ -129,61 +129,6 @@ public class MyArrayList<E extends Comparable<E>> {
 	}
 
 	/**
-	 * Сортирует список с использованием алгоритма быстрой сортировки.
-	 */
-	public void sort() {
-		quickSort(0, size - 1);
-	}
-
-	/**
-	 * Рекурсивная функция быстрой сортировки.
-	 *
-	 * @param low  начальный индекс.
-	 * @param high конечный индекс.
-	 */
-	private void quickSort(int low, int high) {
-		if (low < high) {
-			int pivotIndex = partition(low, high);
-			quickSort(low, pivotIndex - 1);
-			quickSort(pivotIndex + 1, high);
-		}
-	}
-
-	/**
-	 * Разбиение для быстрой сортировки.
-	 *
-	 * @param low  начальный индекс.
-	 * @param high конечный индекс.
-	 * @return индекс разделяющего элемента.
-	 */
-	private int partition(int low, int high) {
-		E pivot = get(high);
-		int i = low - 1;
-
-		for (int j = low; j < high; j++) {
-			if (get(j).compareTo(pivot) <= 0) {
-				i++;
-				swap(i, j);
-			}
-		}
-
-		swap(i + 1, high);
-		return i + 1;
-	}
-
-	/**
-	 * Меняет местами два элемента в списке.
-	 *
-	 * @param i индекс первого элемента.
-	 * @param j индекс второго элемента.
-	 */
-	private void swap(int i, int j) {
-		E temp = get(i);
-		set(i, get(j));
-		set(j, temp);
-	}
-
-	/**
 	 * Сортирует список с использованием заданного компаратора.
 	 *
 	 * @param comparator компаратор для сортировки.
@@ -228,6 +173,18 @@ public class MyArrayList<E extends Comparable<E>> {
 
 		swap(i + 1, high);
 		return i + 1;
+	}
+
+	/**
+	 * Меняет местами два элемента в списке.
+	 *
+	 * @param i индекс первого элемента.
+	 * @param j индекс второго элемента.
+	 */
+	private void swap(int i, int j) {
+		E temp = get(i);
+		set(i, get(j));
+		set(j, temp);
 	}
 
 	/**

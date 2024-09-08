@@ -1,8 +1,9 @@
 import org.example.MyArrayList;
-import org.example.Phone;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
+
+import javax.print.DocFlavor.STRING;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,9 +18,6 @@ public class MyArrayListTest {
 	 */
 	@Test
 	void testConstructor() {
-		MyArrayList<Phone> phoneList = new MyArrayList<>();
-		MyArrayList<Phone> phoneList1 = new MyArrayList<>(5);
-		MyArrayList<Phone> phoneList2 = new MyArrayList<>(0);
 		MyArrayList<String> stringList = new MyArrayList<>();
 		MyArrayList<String> stringList1 = new MyArrayList<>(5);
 		MyArrayList<String> stringList2 = new MyArrayList<>(0);
@@ -27,9 +25,6 @@ public class MyArrayListTest {
 		MyArrayList<Integer> integerList1 = new MyArrayList<>(5);
 		MyArrayList<Integer> integerList2 = new MyArrayList<>(0);
 
-		assertEquals(phoneList.size() == 0, phoneList.size() == 0, "Размер листа должен быть 0");
-		assertEquals(phoneList1.size() == 5, phoneList1.size() == 5, "Размер листа должен быть 5");
-		assertEquals(phoneList2.size() == 0, phoneList1.size() == 0, "Размер листа должен быть 0");
 		assertEquals(stringList.size() == 0, stringList.size() == 0, "Размер листа должен быть 0");
 		assertEquals(stringList1.size() == 5, stringList1.size() == 5, "Размер листа должен быть 5");
 		assertEquals(stringList2.size() == 0, stringList1.size() == 0, "Размер листа должен быть 0");
@@ -47,26 +42,8 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#add(Object)} для добавления элементов в {@link MyArrayList}.
-	 */
-	@Test
-	void testAdd() {
-		MyArrayList<Phone> list = new MyArrayList<>();
-		Phone phone1 = new Phone("iPhone", 1000);
-		Phone phone2 = new Phone("Samsung", 900);
-
-		assertEquals(0, list.size(), "Размер списка должен быть 0");
-
-		list.add(phone1);
-		list.add(phone2);
-
-		assertEquals(2, list.size(), "Размер списка должен быть 2 после добавления двух телефонов");
-		assertEquals(phone1, list.get(0), "Первый элемент должен быть iPhone");
-		assertEquals(phone2, list.get(1), "Второй элемент должен быть Samsung");
-	}
-
-	/**
-	 * Тестирует метод {@link MyArrayList#add(Object)} для добавления строковых элементов в {@link MyArrayList}.
+	 * Тестирует метод {@link MyArrayList#add(Object)} для добавления строковых
+	 * элементов в {@link MyArrayList}.
 	 */
 	@Test
 	void testAddString() {
@@ -83,7 +60,8 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#add(Object)} для добавления числовых элементов в {@link MyArrayList}.
+	 * Тестирует метод {@link MyArrayList#add(Object)} для добавления числовых
+	 * элементов в {@link MyArrayList}.
 	 */
 	@Test
 	void testAddInteger() {
@@ -100,22 +78,16 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#add(Object)} для добавления 1000 элементов в {@link MyArrayList}.
+	 * Тестирует метод {@link MyArrayList#add(Object)} для добавления 1000 элементов
+	 * в {@link MyArrayList}.
 	 */
 	@Test
 	void testAdd1000() {
-		MyArrayList<Phone> phoneList = new MyArrayList<>();
 		MyArrayList<String> stringList = new MyArrayList<>();
 		MyArrayList<Integer> integerList = new MyArrayList<>();
-		Phone phone1 = new Phone("iPhone", 1000);
 
-		assertEquals(0, phoneList.size(), "Размер списка должен быть 0");
 		assertEquals(0, stringList.size(), "Размер списка должен быть 0");
 		assertEquals(0, integerList.size(), "Размер списка должен быть 0");
-
-		for (int i = 0; i < 1000; i++) {
-			phoneList.add(phone1);
-		}
 
 		for (int i = 0; i < 1000; i++) {
 			stringList.add("one");
@@ -125,45 +97,23 @@ public class MyArrayListTest {
 			integerList.add(1);
 		}
 
-		assertEquals(1000, phoneList.size(), "Размер списка должен быть 1000 после добавления 1000 элементов");
 		assertEquals(1000, stringList.size(), "Размер списка должен быть 1000 после добавления 1000 элементов");
 		assertEquals(1000, integerList.size(), "Размер списка должен быть 1000 после добавления 1000 элементов");
 	}
 
 	/**
-	 * Тестирует исключение для метода {@link MyArrayList#add(Object)} класса {@link MyArrayList}.
+	 * Тестирует исключение для метода {@link MyArrayList#add(Object)} класса
+	 * {@link MyArrayList}.
 	 */
 	@Test
 	void testAddException() {
-		Phone phone = new Phone();
-		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<Phone>().add(-1, phone));
-		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<Phone>().add(100, phone));
+		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<String>().add(-1, "Tom"));
+		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<String>().add(100, "Tom"));
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#add(int, Object)} для добавления элементов в {@link MyArrayList} по индексу.
-	 */
-	@Test
-	void testAddByIndex() {
-		MyArrayList<Phone> list = new MyArrayList<>();
-		Phone phone1 = new Phone("Xiaomi", 500);
-		Phone phone2 = new Phone("Huawei", 700);
-		Phone phone3 = new Phone("Sony", 600);
-
-		assertEquals(0, list.size(), "Размер списка должен быть 0");
-
-		list.add(phone1);
-		list.add(phone2);
-		list.add(1, phone3);
-
-		assertEquals(3, list.size(), "Размер списка должен быть 3 после вставки телефона по индексу");
-		assertEquals(phone1, list.get(0), "Первый элемент должен быть Xiaomi");
-		assertEquals(phone3, list.get(1), "Второй элемент должен быть Sony после вставки");
-		assertEquals(phone2, list.get(2), "Третий элемент должен быть Huawei");
-	}
-
-	/**
-	 * Тестирует метод {@link MyArrayList#add(int, Object)} для добавления строковых элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#add(int, Object)} для добавления строковых
+	 * элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testAddByIndexString() {
@@ -182,7 +132,8 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#add(int, Object)} для добавления числовых элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#add(int, Object)} для добавления числовых
+	 * элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testAddByIndexInteger() {
@@ -201,25 +152,8 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#get(int)} для получения элементов в {@link MyArrayList} по индексу.
-	 */
-	@Test
-	void testGet() {
-		MyArrayList<Phone> list = new MyArrayList<>();
-		Phone phone1 = new Phone("Nokia", 600);
-		Phone phone2 = new Phone("Motorola", 800);
-
-		assertEquals(0, list.size(), "Размер списка должен быть 0");
-
-		list.add(phone1);
-		list.add(phone2);
-
-		assertEquals(phone1, list.get(0), "Первый элемент должен быть Nokia");
-		assertEquals(phone2, list.get(1), "Второй элемент должен быть Motorola");
-	}
-
-	/**
-	 * Тестирует метод {@link MyArrayList#get(int)} для получения строковых элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#get(int)} для получения строковых
+	 * элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testGetString() {
@@ -234,7 +168,8 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#get(int)} для получения числовых элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#get(int)} для получения числовых элементов
+	 * в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testGetInteger() {
@@ -249,39 +184,18 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует исключение для метода {@link MyArrayList#get(int)} класса {@link MyArrayList}.
+	 * Тестирует исключение для метода {@link MyArrayList#get(int)} класса
+	 * {@link MyArrayList}.
 	 */
 	@Test
 	void testGetException() {
-		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<Phone>().get(-1));
-		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<Phone>().get(100));
+		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<String>().get(-1));
+		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<String>().get(100));
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#remove(int)} для удаления элементов в {@link MyArrayList} по индексу.
-	 */
-	@Test
-	void testRemove() {
-		MyArrayList<Phone> list = new MyArrayList<>();
-		Phone phone1 = new Phone("Google Pixel", 1000);
-		Phone phone2 = new Phone("LG", 800);
-		Phone phone3 = new Phone("OnePlus", 900);
-
-		assertEquals(0, list.size(), "Размер списка должен быть 0");
-
-		list.add(phone1);
-		list.add(phone2);
-		list.add(phone3);
-
-		list.remove(1); // Удаляем второй элемент (LG)
-
-		assertEquals(2, list.size(), "Размер списка должен быть 2 после удаления элемента");
-		assertEquals(phone1, list.get(0), "Первый элемент должен остаться Google Pixel");
-		assertEquals(phone3, list.get(1), "Второй элемент теперь должен быть OnePlus");
-	}
-
-	/**
-	 * Тестирует метод {@link MyArrayList#remove(int)} для удаления строковых элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#remove(int)} для удаления строковых
+	 * элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testRemoveString() {
@@ -300,7 +214,8 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#remove(int)} для удаления числовых элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#remove(int)} для удаления числовых
+	 * элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testRemoveInteger() {
@@ -319,22 +234,16 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#remove(int)} для удаления 1000 элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#remove(int)} для удаления 1000 элементов в
+	 * {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testRemove1000() {
-		MyArrayList<Phone> phoneList = new MyArrayList<>();
 		MyArrayList<String> stringList = new MyArrayList<>();
 		MyArrayList<Integer> integerList = new MyArrayList<>();
-		Phone phone1 = new Phone("iPhone", 1000);
 
-		assertEquals(0, phoneList.size(), "Размер списка должен быть 0");
 		assertEquals(0, stringList.size(), "Размер списка должен быть 0");
 		assertEquals(0, integerList.size(), "Размер списка должен быть 0");
-
-		for (int i = 0; i < 1000; i++) {
-			phoneList.add(phone1);
-		}
 
 		for (int i = 0; i < 1000; i++) {
 			stringList.add("one");
@@ -344,13 +253,8 @@ public class MyArrayListTest {
 			integerList.add(1);
 		}
 
-		assertEquals(1000, phoneList.size(), "Размер списка должен быть 1000 после добавления 1000 элементов");
 		assertEquals(1000, stringList.size(), "Размер списка должен быть 1000 после добавления 1000 элементов");
 		assertEquals(1000, integerList.size(), "Размер списка должен быть 1000 после добавления 1000 элементов");
-
-		for (int i = 0; i < 1000; i++) {
-			phoneList.remove(i);
-		}
 
 		for (int i = 0; i < 1000; i++) {
 			stringList.remove(i);
@@ -360,42 +264,22 @@ public class MyArrayListTest {
 			integerList.remove(i);
 		}
 
-		assertEquals(0, phoneList.size(), "Размер списка должен быть 0 после удаления 1000 элементов");
 		assertEquals(0, stringList.size(), "Размер списка должен быть 0 после удаления 1000 элементов");
 		assertEquals(0, integerList.size(), "Размер списка должен быть 0 после удаления 1000 элементов");
 	}
 
 	/**
-	 * Тестирует исключение для метода {@link MyArrayList#remove(int)} класса {@link MyArrayList}.
+	 * Тестирует исключение для метода {@link MyArrayList#remove(int)} класса
+	 * {@link MyArrayList}.
 	 */
 	@Test
 	void testRemoveException() {
-		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<Phone>().remove(-1));
+		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<String>().remove(-1));
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#set(int, Object)} для замены элементов в {@link MyArrayList} по индексу.
-	 */
-	@Test
-	void testSet() {
-		MyArrayList<Phone> list = new MyArrayList<>();
-		Phone phone1 = new Phone("HTC", 600);
-		Phone phone2 = new Phone("Sony", 700);
-		Phone phone3 = new Phone("Samsung", 800);
-
-		assertEquals(0, list.size(), "Размер списка должен быть 0");
-
-		list.add(phone1);
-		list.add(phone2);
-
-		list.set(1, phone3);
-
-		assertEquals(2, list.size(), "Размер списка должен остаться 2 после замены элемента");
-		assertEquals(phone3, list.get(1), "Второй элемент должен быть заменен на Samsung");
-	}
-
-	/**
-	 * Тестирует метод {@link MyArrayList#set(int, Object)} для замены строковых элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#set(int, Object)} для замены строковых
+	 * элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testSetString() {
@@ -412,7 +296,8 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#set(int, Object)} для замены числовых элементов в {@link MyArrayList} по индексу.
+	 * Тестирует метод {@link MyArrayList#set(int, Object)} для замены числовых
+	 * элементов в {@link MyArrayList} по индексу.
 	 */
 	@Test
 	void testSetInteger() {
@@ -429,36 +314,18 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует исключение для метода {@link MyArrayList#set(int, Object)} класса {@link MyArrayList}.
+	 * Тестирует исключение для метода {@link MyArrayList#set(int, Object)} класса
+	 * {@link MyArrayList}.
 	 */
 	@Test
 	void testSetException() {
-		Phone phone = new Phone();
-		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<Phone>().set(-1, phone));
-		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<Phone>().set(100, phone));
+		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<String>().set(-1, "Tom"));
+		assertThrows(IndexOutOfBoundsException.class, () -> new MyArrayList<String>().set(100, "Tom"));
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#clear()} для очистки всех элементов в {@link MyArrayList}.
-	 */
-	@Test
-	void testClear() {
-		MyArrayList<Phone> list = new MyArrayList<>();
-		Phone phone1 = new Phone("Google", 1000);
-		Phone phone2 = new Phone("Nokia", 600);
-
-		assertEquals(0, list.size(), "Размер списка должен быть 0");
-
-		list.add(phone1);
-		list.add(phone2);
-
-		list.clear();
-
-		assertEquals(0, list.size(), "Размер списка должен быть 0 после очистки");
-	}
-
-	/**
-	 * Тестирует метод {@link MyArrayList#clear()} для очистки всех строковых элементов в {@link MyArrayList}.
+	 * Тестирует метод {@link MyArrayList#clear()} для очистки всех строковых
+	 * элементов в {@link MyArrayList}.
 	 */
 	@Test
 	void testClearString() {
@@ -474,7 +341,8 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#clear()} для очистки всех числовых элементов в {@link MyArrayList}.
+	 * Тестирует метод {@link MyArrayList#clear()} для очистки всех числовых
+	 * элементов в {@link MyArrayList}.
 	 */
 	@Test
 	void testClearInteger() {
@@ -490,39 +358,41 @@ public class MyArrayListTest {
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#sort(Comparator)} для сортировки всех элементов
+	 * Тестирует метод {@link MyArrayList#sort(Comparator)} для сортировки всех
+	 * элементов
 	 * в {@link MyArrayList} по возрастанию и по убыванию.
 	 */
 	@Test
 	void testSort() {
-		MyArrayList<Phone> list = new MyArrayList<>();
-		Phone phone1 = new Phone("Huawei", 800);
-		Phone phone2 = new Phone("Samsung", 600);
-		Phone phone3 = new Phone("Apple", 1000);
+		MyArrayList<Integer> list = new MyArrayList<>();
+		int a = 50;
+		int b = 100;
+		int c = 150;
 
 		assertEquals(0, list.size(), "Размер списка должен быть 0");
 
-		list.add(phone1);
-		list.add(phone2);
-		list.add(phone3);
+		list.add(c);
+		list.add(a);
+		list.add(b);
 
-		list.sort(Comparator.comparingInt(Phone::getPrice));
+		list.sort(Comparator.naturalOrder());
 
 		assertEquals(3, list.size(), "Размер списка должен остаться 3 после сортировки по возрастанию");
-		assertEquals(phone2, list.get(0), "Первый элемент должен быть Samsung (цена 600) после сортировки");
-		assertEquals(phone1, list.get(1), "Второй элемент должен быть Huawei (цена 800)");
-		assertEquals(phone3, list.get(2), "Третий элемент должен быть Apple (цена 1000)");
+		assertEquals(a, list.get(0), "Первый элемент должен быть a после сортировки");
+		assertEquals(b, list.get(1), "Второй элемент должен быть b");
+		assertEquals(c, list.get(2), "Третий элемент должен быть c");
 
-		list.sort(Comparator.comparing(Phone::getPrice).reversed());
+		list.sort(Comparator.reverseOrder());
 
 		assertEquals(3, list.size(), "Размер списка должен остаться 3 после сортировки по убыванию");
-		assertEquals(phone3, list.get(0), "Первый элемент должен быть Apple (цена 1000)");
-		assertEquals(phone1, list.get(1), "Второй элемент должен быть Huawei (цена 800)");
-		assertEquals(phone2, list.get(2), "Третий элемент должен быть Samsung (цена 600)");
+		assertEquals(c, list.get(0), "Первый элемент должен быть c");
+		assertEquals(b, list.get(1), "Второй элемент должен быть b");
+		assertEquals(a, list.get(2), "Третий элемент должен быть a");
 	}
 
 	/**
-	 * Тестирует метод {@link MyArrayList#sort(Comparator)} для сортировки всех строковых элементов в {@link MyArrayList}.
+	 * Тестирует метод {@link MyArrayList#sort(Comparator)} для сортировки всех
+	 * строковых элементов в {@link MyArrayList}.
 	 */
 	@Test
 	void testSortWithComparatorString() {
